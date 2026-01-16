@@ -1,5 +1,12 @@
 import webbrowser
 import requests
+import os
+import sys
+
+if os.name == "nt":
+    os.system("")  # habilita ANSI en Windows
+
+sys.stdout.reconfigure(encoding="utf-8")
 
 url = "https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions"
 params = {
