@@ -2,6 +2,13 @@ import webbrowser
 import requests
 import os
 import sys
+from threading import Thread
+import time
+
+def autoStop():
+    time.sleep(300)  # 5 minutos
+    os._exit(0)
+Thread(target=autoStop,daemon=True).start()
 
 if os.name == "nt":
     os.system("")  # habilita ANSI en Windows
