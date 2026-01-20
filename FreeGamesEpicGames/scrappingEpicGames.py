@@ -41,13 +41,26 @@ for game in games:
         free_games.append({
             "title": game["title"],
             "description": game["description"],
-            "slug": page_slug
+            "slug": page_slug,
+            "price": game["price"]
         })
 
 # 📋 Mostrar menú
 print("\n🎮 Juegos gratis disponibles:\n")
 for i, game in enumerate(free_games, start=1):
-    print(f"\033[92m[{i}]\033[0m \033[96m{game['title']}\033[0m\n     \033[93m{game['description']}\033[0m\n")
+    fecha = game['price']['lineOffers'][0]['appliedRules'][0]['endDate']
+    format_fecha = fecha.split("T")[0]
+    fecha = format_fecha.replace("-", "/")
+    fecha = "/".join(reversed(fecha.split("/")))
+
+    #Color rojo si queda menos de un día
+    end_timestamp = time.mktime(time.strptime(format_fecha, "%Y-%m-%d"))
+    if end_timestamp - time.time() < 86400:
+        fecha = f"\033[91m{fecha}\033[0m"
+        
+    
+    print(f"\033[92m[{i}]\033[0m \033[96m{game['title']}  \033[m Fecha limite: {fecha} \033[0m\n     \033[93m{game['description']}\033[0m\n")
+
 
 # 🔘 Botón por input
 while True:
